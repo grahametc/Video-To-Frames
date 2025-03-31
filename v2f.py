@@ -3,9 +3,11 @@ import os, sys, argparse
 
 #frames must be in numerical order
 def merge_frames(path, fps):
-   fourcc = cv.VideoWriter_fourcc(*'mp4v')
-   output = cv.VideoWriter("output.mp4", fourcc, fps, (640, 360))
    os.chdir(path)
+   data = cv.imread(os.listdir(path)[0])
+   size = data.shape
+   fourcc = cv.VideoWriter_fourcc(*'mp4v')
+   output = cv.VideoWriter("output.mp4", fourcc, fps, (size[1], size[0]))   
    for i in range(1, len(os.listdir(path))):
       img = cv.imread(str(i)+".png")
       output.write(img)
